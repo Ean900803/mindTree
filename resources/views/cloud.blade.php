@@ -13,7 +13,7 @@
     </div>
 
     <!-- 將 x-data 放在包含整個區塊的 div 上 -->
-        <div x-show="showForm" class="mb-5">
+        <div x-show="showForm" class="mt-2">
             @include('create')
         </div>
 

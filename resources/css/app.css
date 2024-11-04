@@ -23,90 +23,63 @@
     height: 600px;
     overflow-x: auto; /* 僅當需要時顯示水平滾動條 */
     overflow-y: auto; /* 僅當需要時顯示垂直滾動條 */
-    padding: 10px; 
+    padding-left: 5; 
     border-radius: 1.5rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 0 auto; /* 水平居中 */
 }
 
 .tree {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* 改成水平擴展 */
     align-items: center;
-    margin: 0 auto; /* 使樹狀結構居中 */
 }
 
 .tree ul {
-    padding-top: 30px;
+    display: flex;
+    flex-direction: column; /* 子節點水平擴展 */
     position: relative;
     transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
 }
 
 .tree li {
-    float: left;
+    display: flex;
+    flex-direction: row; /* 每個節點內的元素垂直排列 */
+    align-items: center;
     text-align: center;
     list-style-type: none;
     position: relative;
-    padding: 20px 10px 0px 0px;
+    padding: 50px 50px 20px 50px; /* 調整間距使節點有足夠的水平間隔 */
     transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
 }
 
 .tree li::before,
 .tree li::after {
     content: '';
     position: absolute;
-    top: 0;
-    right: 50%;
+    top: 50%; /* 調整到節點中間 */
+    height: 1px; /* 橫向線 */
     border-top: 1px solid #ccc;
-    width: 50%;
-    height: 20px;
+    width: 50px; /* 調整連接線的長度 */
 }
 
 .tree li::after {
-    right: auto;
-    left: 50%;
-    border-left: 1px solid #ccc;
+    left: 50%; /* 連接線的右側延伸 */
 }
 
-.tree li:only-child::after,
-.tree li:only-child::before {
-    display: none;
+.tree li:first-child::before {
+    border: none;
 }
 
-.tree li:only-child {
-    padding-top: 0;
-}
-
-.tree li:first-child::before,
 .tree li:last-child::after {
-    border: 0 none;
-}
-
-.tree li:last-child::before {
-    border-right: 1px solid #ccc;
-    border-radius: 0 5px 0 0;
-    -webkit-border-radius: 0 5px 0 0;
-    -moz-border-radius: 0 5px 0 0;
-}
-
-.tree li:first-child::after {
-    border-radius: 5px 0 0 0;
-    -webkit-border-radius: 5px 0 0 0;
-    -moz-border-radius: 5px 0 0 0;
+    border: none;
 }
 
 .tree ul ul::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 50%;
-    border-left: 1px solid #ccc;
-    width: 0;
-    height: 20px;
+    left: 50%; /* 調整為水平居中 */
+    border-top: 1px solid #ccc;
+    width: 20px;
 }
 
 .tree li div {
