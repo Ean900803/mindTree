@@ -6,9 +6,38 @@
     margin: 0;
     padding: 0;
 }
+.form {
+    background-color: white;
+    border-radius: 0.75rem;
+    width: 30%;
+    margin-bottom: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+.tree-container {
+    background-color: whitesmoke;
+    width: 80%; /* 樹狀圖容器固定80% */
+    max-width: 100%; /* 最大寬度為100% */
+    height: 600px;
+    overflow-x: auto; /* 僅當需要時顯示水平滾動條 */
+    overflow-y: auto; /* 僅當需要時顯示垂直滾動條 */
+    padding: 10px; 
+    border-radius: 1.5rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0 auto; /* 水平居中 */
+}
+
+.tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto; /* 使樹狀結構居中 */
+}
 
 .tree ul {
-    padding-top: 20px;
+    padding-top: 30px;
     position: relative;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -20,7 +49,7 @@
     text-align: center;
     list-style-type: none;
     position: relative;
-    padding: 20px 5px 0 5px;
+    padding: 20px 10px 0px 0px;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -80,9 +109,9 @@
     height: 20px;
 }
 
-.tree li a {
+.tree li div {
     border: 1px solid #ccc;
-    padding: 5px 10px;
+    padding: 5px 10px 0px;
     text-decoration: none;
     color: #666;
     font-family: arial, verdana, tahoma;
@@ -96,16 +125,16 @@
     -moz-transition: all 0.5s;
 }
 
-.tree li a:hover,
-.tree li a:hover + ul li a {
+.tree li div:hover,
+.tree li div:hover + ul li div {
     background: #c8e4f8;
     color: #000;
     border: 1px solid #94a0b4;
 }
 
-.tree li a:hover + ul li::after,
-.tree li a:hover + ul li::before,
-.tree li a:hover + ul::before,
-.tree li a:hover + ul ul::before {
+.tree li div:hover + ul li::after,
+.tree li div:hover + ul li::before,
+.tree li div:hover + ul::before,
+.tree li div:hover + ul ul::before {
     border-color: #94a0b4;
 }

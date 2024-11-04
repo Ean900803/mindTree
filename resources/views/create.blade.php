@@ -19,19 +19,18 @@
     <form action="{{ route('funcTree.store') }}" method="POST" class="p-4 bg-white shadow-md rounded-lg  mx-auto">
         @csrf
         <div class="mb-4">
-            <label for="value" class="block text-gray-700 font-bold mb-2">內容:</label>
-            <input type="text" id="value" name="value" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label for="value" class="block text-gray-700 font-bold mb-2">新增內容:</label>
+            <textarea name="value" id="value" cols="65" rows="1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
     
-        <div class="mb-4">
-            <label for="parent_id" class="block text-gray-700 font-bold mb-2">Parent ID:</label>
-            <input type="text" id="parent_id" name="parent_id" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class="mb-4">{{--parent_id 透過button帶入--}}
+            <input type="text" value="" id="parent_id" name="parent_id" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
     
         <div class="mb-4">
             <span class="block text-gray-700 font-bold mb-2">系統:</span>
             <label class="inline-flex items-center">
-                <input type="radio" name="system" id="cloud" value="cloud" class="form-radio text-blue-500">
+                <input type="radio" name="system" id="cloud" value="cloud" class="form-radio text-blue-500" checked>
                 <span class="ml-2">雲</span>
             </label>
             <label class="inline-flex items-center ml-4">
