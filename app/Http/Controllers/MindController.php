@@ -44,7 +44,7 @@ class MindController extends Controller
     public function showCloud()
     {
         try{
-        $nodes = TreeNode::whereNull('parent_id')->with('childNode')->get();
+        $nodes = TreeNode::where('system','cloud')->whereNull('parent_id')->with('childNode')->get();
     
         return view('cloud', compact('nodes'));
         }catch(PDOException $e){

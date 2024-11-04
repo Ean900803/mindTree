@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix'=>'funcTree'],function(){
-    Route::get('create',[MindController::class,'showCreateForm'])->name("funcTree.create");
-    Route::post('create',[MindController::class,'createNode'])->name("funcTree.store");
+    // Route::get('create',[MindController::class,'showCreateForm'])->name("funcTree.create"); 新建表單
+    Route::post('cloud',[MindController::class,'createNode'])->name("funcTree.store");
     Route::get('cloud',[MindController::class,'showCloud'])->name("funcTree.cloud");
 });
