@@ -9,14 +9,8 @@ use PDOException;
 class MindController extends Controller
 {
 
-    //新建頁面
-    public function showCreateForm()
-    {
-        return view('create');
-    }
-
-    //存進資料庫
-    public function createNode(Request $request)
+    //資料存資料庫
+    public function storeNode(Request $request)
     {
 
         $request->validate([
@@ -36,7 +30,7 @@ class MindController extends Controller
             $node->layer = 1;
         }
         $node->save();
-
+        return redirect()->route('funcTree.cloud')->with('success', '新增成功');
     }
     
     
@@ -51,25 +45,32 @@ class MindController extends Controller
             return $e->getMessage();
         }
     }
+    
 
-    //更動
-    public function editNode()
+    //編輯存檔
+    public function updateNode(Request $request,$id)
     {
-        
+        // dd($request->all());
+        // dd($request->all());
+
+        $request->validate([
+            'value' => 'required|string',
+            'system' => 'required|string',
+        ]);
+    
+        $node = TreeNode::findOrFail($id);
+        $node->value = $request->input('value');
+        $node->system = $request->input('system');
+        $node->save();
+    
+        return redirect()->route('funcTree.cloud')->with('success', '更新成功');
     }
 
-
-
-
-
-
-
-
     //刪除節點
-    // public function delNode()
-    // {
-    //     $id = ;
-    //     $node = TreeNode::find($id);
-    //     $node->$table->softDeletes();
-    // }
+    public function deleteNode(string $id){
+        $node = TreeNode::findOrFail($id);
+        $node->delete();
+        
+        return redirect()->route('funcTree.cloud')->with('success','刪除成功');
+    }
 }

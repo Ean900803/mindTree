@@ -12,6 +12,8 @@ class TreeNode extends Model
     use HasFactory;
     protected $table = 'tree';
 
+    protected $fillable = ['value', 'system'];
+
     public function parentNode():BelongsTo{
         return $this->belongsTo(TreeNode::class, 'parent_id');
     }

@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
 }
+
 .form {
     background-color: white;
     border-radius: 0.75rem;
@@ -13,128 +14,108 @@
     margin-bottom: 50px;
     margin-right: auto;
     margin-left: auto;
-    
 }
 
 .tree-container {
     background-color: whitesmoke;
-    width: 80%; /* 樹狀圖容器固定80% */
+    
     max-width: 100%; /* 最大寬度為100% */
-    height: 600px;
-    overflow-x: auto; /* 僅當需要時顯示水平滾動條 */
-    overflow-y: auto; /* 僅當需要時顯示垂直滾動條 */
-    padding: 10px; 
+    min-width: 100%;
+    height: 90%;
+    overflow-x: auto; /* 水平滾動條 */
+    overflow-y: auto; /* 垂直滾動條 */
+    padding-top: 10px;
+    padding-right: 30px; 
     border-radius: 1.5rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 0 auto; /* 水平居中 */
+   
 }
 
 .tree {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto; /* 使樹狀結構居中 */
+    list-style: none;
+    margin-right: 30px;
+    padding: 0;
 }
 
-.tree ul {
-    padding-top: 30px;
-    position: relative;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-}
-
+/* 每個節點 */
 .tree li {
-    float: left;
-    text-align: center;
-    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* 讓內容垂直居中 */
     position: relative;
-    padding: 20px 10px 0px 0px;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+    padding-left: 5vw; 
 }
 
-.tree li::before,
-.tree li::after {
+/* 移除最左邊的線條 */
+.tree > li:first-child::before {
+    content: none;
+}
+
+/* 水平線，對齊每個 <li> 中的 <div> 中間 */
+.tree li::before {
     content: '';
     position: absolute;
-    top: 0;
-    right: 50%;
-    border-top: 1px solid #ccc;
-    width: 50%;
-    height: 20px;
+    left: 10;
+    top: 50%; /* 垂直中心對齊 */
+    transform: translateY(-50%); /* 垂直居中修正 */
+    border-top: 4px solid rgb(71, 74, 72);
+    width: 60px;
 }
 
-.tree li::after {
-    right: auto;
-    left: 50%;
-    border-left: 1px solid #ccc;
-}
-
-.tree li:only-child::after,
-.tree li:only-child::before {
-    display: none;
-}
-
-.tree li:only-child {
-    padding-top: 0;
-}
-
-.tree li:first-child::before,
-.tree li:last-child::after {
-    border: 0 none;
-}
-
-.tree li:last-child::before {
-    border-right: 1px solid #ccc;
-    border-radius: 0 5px 0 0;
-    -webkit-border-radius: 0 5px 0 0;
-    -moz-border-radius: 0 5px 0 0;
-}
-
-.tree li:first-child::after {
-    border-radius: 5px 0 0 0;
-    -webkit-border-radius: 5px 0 0 0;
-    -moz-border-radius: 5px 0 0 0;
-}
-
-.tree ul ul::before {
+/* 垂直線條，確保從上到下貫穿 <li> 的高度 */
+.tree li:not(:only-child)::after {
     content: '';
     position: absolute;
+    left: 10;
     top: 0;
-    left: 50%;
-    border-left: 1px solid #ccc;
-    width: 0;
-    height: 20px;
+    bottom: 0; /* 覆蓋整個高度 */
+    border-left: 3px solid rgb(71, 74, 72);
 }
 
-.tree li div {
-    border: 1px solid #ccc;
-    padding: 5px 10px 0px;
-    text-decoration: none;
-    color: #666;
-    font-family: arial, verdana, tahoma;
-    font-size: 11px;
-    display: inline-block;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+/* 第一個子元素的線條從中間開始 */
+.tree li:first-of-type::after {
+    top: 50%;
+    height: 50%;
 }
 
-.tree li div:hover,
-.tree li div:hover + ul li div {
-    background: #c8e4f8;
-    color: #000;
-    border: 1px solid #94a0b4;
+/* 最後一個子元素的線條到中間結束 */
+.tree li:last-of-type::after {
+    height: 50%;
 }
 
-.tree li div:hover + ul li::after,
-.tree li div:hover + ul li::before,
-.tree li div:hover + ul::before,
-.tree li div:hover + ul ul::before {
-    border-color: #94a0b4;
+/* 子節點的水平線條 */
+.tree ul:not(:empty)::before {
+    content: '';
+    position: absolute;
+    left: 50;
+    top: 51%; /* 垂直中心 */
+    transform: translateY(-50%); /* 確保在中間 */
+    border-top: 4px solid rgb(71, 74, 72);
+    width: 5vw;
+}
+
+.tree div {
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    text-align: center;
+    padding: 10px 25px;
+    margin-top: 25px;
+    margin-left: 50px;
+    height: auto; /* 自適應高度 */
+    font-family: serif;
+    font-size: 15px;
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    /* gap: 20px; */
+    /* word-wrap: break-word; 在單詞邊界自動換行 */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e8f5e9;
 }
