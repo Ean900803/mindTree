@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雲系統功能樹狀圖</title>
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-</head>
+@include('layouts.header')
 <body class="bg-green-100 flex flex-col items-center py-10">
     <div class="text-4xl font-bold text-gray-700 mb-3">
         <h1>雲系統開發功能樹狀圖</h1>
@@ -33,16 +25,20 @@
     </div>
 
     <script>
-
+        
         const formDiv = document.getElementById('formDiv');
         const formDivb = document.getElementById('formDivb');
         const closeButton = document.getElementById('closeButton');
         const contentSpan = document.getElementById('contentSpan');
         const createBtn = document.getElementById('createNodeBtn');
+        const deleteBtn = document.getElementById('deleteNodeBtn');
         const form = document.getElementById('editForm');
 
-        const createUrl = `{{ route('funcTree.store') }}`;
-
+        //作用路由
+        const createUrl = `{{ route('cloud.store') }}`;
+        const updateUrl = `{{ url('cloud/funcTree') }}`;
+        const deleteUrl = `{{ url('cloud/funcTree') }}`;
+        
         //顯示表單
         function showForm() {
             formDiv.style.display = 'flex';
@@ -60,7 +56,7 @@
                 showForm();
     
                 // 獲取當前點擊的節點 id
-                const nodeId = event.target.closest('.showFormButton').getAttribute('data-nodeId');
+                // const nodeId = event.target.closest('.showFormButton').getAttribute('data-nodeId');
                 // const nodeParentId = event.target.closest('.showFormButton').getAttribute('data-parentId');
                 const nodeValue = event.target.closest('.showFormButton').getAttribute('data-nodeValue');
                 currentNodeParentId = event.target.closest('.showFormButton').getAttribute('data-parentId');
@@ -76,12 +72,12 @@
                 document.getElementById('editParentId').value = currentNodeParentId;
 
 
-                
                 //更改表單發送方式
-                form.action =`/funcTree/nodes/${nodeId}`;
-                form.method = "POST";
-                form.querySelector('input[name="_method"]').value = "PUT";
-
+                if(currentNodeId){
+                    form.action = `${updateUrl}/${currentNodeId}`;
+                    form.method = "POST";
+                    form.querySelector('input[name="_method"]').value = "PUT";
+                }
 
                 // document.getElementById('editId').value = nodeId;
             });
@@ -104,12 +100,20 @@
             form.action = createUrl;
             form.method = "POST";
             form.querySelector('input[name="_method"]').value = "";
-            form.getAttribute('')
+            form.getAttribute('');
             document.getElementById('editParentId').value = currentNodeId;
             
         });
+        
+        deleteBtn.addEventListener('click', function(event) {
+            if(currentNodeId){
+                form.action = `${deleteUrl}/${currentNodeId}`;
+                form.method = "POST";
+                form.querySelector('input[name="_method"]').value = "Delete";
+            }
+        })
 
-        // document.getElementById('editParentId').value = currentNodeParentId || "1";
+        
         
     </script>
     

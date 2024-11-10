@@ -30,7 +30,7 @@ class MindController extends Controller
             $node->layer = 1;
         }
         $node->save();
-        return redirect()->route('funcTree.cloud')->with('success', '新增成功');
+        return redirect()->route('cloud.store')->with('success', '新增成功');
     }
     
     
@@ -63,7 +63,7 @@ class MindController extends Controller
         $node->system = $request->input('system');
         $node->save();
     
-        return redirect()->route('funcTree.cloud')->with('success', '更新成功');
+        return redirect()->route('cloud.show')->with('success', '更新成功');
     }
 
     //刪除節點
@@ -71,6 +71,6 @@ class MindController extends Controller
         $node = TreeNode::findOrFail($id);
         $node->delete();
         
-        return redirect()->route('funcTree.cloud')->with('success','刪除成功');
+        return redirect()->route('cloud.show')->with('success','刪除成功');
     }
 }

@@ -18,11 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix'=>'funcTree'],function(){
+Route::group(['prefix'=>'cloud'],function(){
 
-    Route::post('cloud',[MindController::class,'storeNode'])->name("funcTree.store");
-    Route::get('cloud',[MindController::class,'showCloud'])->name("funcTree.cloud");
-    Route::put('/cloud/{id}', [MindController::class, 'updateNode'])->name('funcTree.update');
-    Route::delete('/cloud/{id}',[MindController::class,'deleteNode'])->name('funcTree.delete');
+    Route::post('funcTree',[MindController::class,'storeNode'])->name("cloud.store");
+    Route::get('funcTree',[MindController::class,'showCloud'])->name("cloud.show");
+    Route::put('/funcTree/{id}', [MindController::class, 'updateNode'])->name('cloud.update');
+    Route::delete('/funcTree/{id}',[MindController::class,'deleteNode'])->name('cloud.delete');
     
 });
