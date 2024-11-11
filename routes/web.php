@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\MindController;
+use App\Http\Controllers\CloudController;
+use App\Http\Controllers\SixController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,15 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::group(['prefix'=>'cloud'],function(){
 
-    Route::post('funcTree',[MindController::class,'storeNode'])->name("cloud.store");
-    Route::get('funcTree',[MindController::class,'showCloud'])->name("cloud.show");
-    Route::put('/funcTree/{id}', [MindController::class, 'updateNode'])->name('cloud.update');
-    Route::delete('/funcTree/{id}',[MindController::class,'deleteNode'])->name('cloud.delete');
+    Route::get('funcTree',[CloudController::class,'showCloud'])->name("cloud.show");
+    Route::get('funcTree/admin',[CloudController::class,'showCloudAdmin'])->name("cloud.admin");
+    Route::post('funcTree/admin',[CloudController::class,'storeNode'])->name("cloud.store");
+    Route::put('/funcTree/admin/{id}', [CloudController::class, 'updateNode'])->name('cloud.update');
+    Route::delete('/funcTree/admin/{id}',[CloudController::class,'deleteNode'])->name('cloud.delete');
     
+});
+
+Route::group(['prefix'=>'sixth'],function(){
+    Route::get('funcTree',[SixController::class, 'showSixth'])->name("sixth.show");
+    Route::get('funcTree/admin',[SixController::class, 'showSixthAdmin'])->name("sixth.admin");
+    Route::post('funcTree/admin',[SixController::class,'storeNode'])->name("sixth.store");
+    Route::put('/funcTree/admin/{id}', [SixController::class, 'updateNode'])->name('sixth.update');
+    Route::delete('/funcTree/admin/{id}',[SixController::class,'deleteNode'])->name('sixth.delete');
 });

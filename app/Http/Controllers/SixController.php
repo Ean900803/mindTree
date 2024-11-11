@@ -6,10 +6,38 @@ use App\Models\TreeNode;
 use Illuminate\Http\Request;
 use PDOException;
 
-class MindController extends Controller
+class SixController extends Controller
 {
+    public function showSixthAdmin()
+    {
+        
+        try{
+            $system = "六代系統開發功能樹狀圖";
+            $nodes = TreeNode::where('system','sixth')->whereNull('parent_id')
+            ->with('childNode')->get();
+            
+            return view('admin.showFuncAdmin',compact('nodes','system'));
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+        
+    }
 
-    //資料存資料庫
+    public function showSixth()
+    {
+        
+        try{
+            $system = "六代系統開發功能樹狀圖";
+            $nodes = TreeNode::where('system','sixth')->whereNull('parent_id')
+            ->with('childNode')->get();
+            
+            return view('normal.showFunc',compact('nodes','system'));
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+        
+    }
+
     public function storeNode(Request $request)
     {
 
@@ -30,24 +58,9 @@ class MindController extends Controller
             $node->layer = 1;
         }
         $node->save();
-        return redirect()->route('cloud.store')->with('success', '新增成功');
+        return redirect()->route('sixth.admin')->with('success', '新增成功');
     }
-    
-    
-    //顯示雲的功能圖
-    public function showCloud()
-    {
-        try{
-        $nodes = TreeNode::where('system','cloud')->whereNull('parent_id')->with('childNode')->get();
-    
-        return view('cloud', compact('nodes'));
-        }catch(PDOException $e){
-            return $e->getMessage();
-        }
-    }
-    
 
-    //編輯存檔
     public function updateNode(Request $request,$id)
     {
         // dd($request->all());
@@ -63,14 +76,13 @@ class MindController extends Controller
         $node->system = $request->input('system');
         $node->save();
     
-        return redirect()->route('cloud.show')->with('success', '更新成功');
+        return redirect()->route('sixth.admin')->with('success', '更新成功');
     }
 
-    //刪除節點
     public function deleteNode(string $id){
         $node = TreeNode::findOrFail($id);
         $node->delete();
         
-        return redirect()->route('cloud.show')->with('success','刪除成功');
+        return redirect()->route('sixth.admin')->with('success','刪除成功');
     }
 }
